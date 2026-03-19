@@ -1,861 +1,477 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>piano_aida — уроки фортепиано в Астане и онлайн</title>
-  <meta name="description" content="Индивидуальные уроки фортепиано для детей и взрослых в Астане и онлайн. Преподаватель Аида. Опыт более 5 лет, 70+ учеников." />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --bg: #f7f2ec;
-      --bg-soft: #efe7df;
-      --card: rgba(255, 255, 255, 0.72);
-      --text: #2a2522;
-      --muted: #6d625a;
-      --accent: #b28b74;
-      --accent-dark: #94715c;
-      --line: rgba(90, 72, 60, 0.12);
-      --shadow: 0 10px 30px rgba(58, 43, 34, 0.08);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 18px;
-      --max: 1140px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.55), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(227,211,197,0.45), transparent 26%),
-        var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    .section {
-      padding: 88px 0;
-    }
-
-    .section-title {
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2rem, 4vw, 3.3rem);
-      line-height: 1.05;
-      margin: 0 0 14px;
-      text-align: center;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
-
-    .section-subtitle {
-      max-width: 700px;
-      margin: 0 auto 42px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 1.02rem;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(247, 242, 236, 0.72);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .topbar-inner {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.9rem;
-      font-weight: 600;
-      letter-spacing: 0.4px;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav a {
-      color: var(--muted);
-      font-size: 0.96rem;
-      transition: 0.2s ease;
-    }
-
-    .nav a:hover {
-      color: var(--text);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 52px;
-      padding: 0 24px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-weight: 600;
-      font-size: 0.98rem;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-dark);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.55);
-      color: var(--text);
-      border-color: var(--line);
-      box-shadow: none;
-    }
-
-    .hero {
-      padding: 54px 0 42px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .hero-card,
-    .glass-card {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.6);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-card {
-      padding: 54px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      top: -60px;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(178,139,116,0.18), transparent 68%);
-      pointer-events: none;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 14px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(178,139,116,0.12);
-      color: var(--accent-dark);
-      font-size: 0.88rem;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      line-height: 0.95;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-
-    .hero p.lead {
-      margin: 22px 0 0;
-      max-width: 630px;
-      font-size: 1.08rem;
-      color: var(--muted);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 26px 0 34px;
-    }
-
-    .meta-pill {
-      padding: 11px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid var(--line);
-      font-size: 0.94rem;
-      color: var(--text);
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .hero-aside {
-      display: grid;
-      gap: 20px;
-    }
-
-    .piano-visual {
-      min-height: 360px;
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(160deg, rgba(255,255,255,0.5), rgba(255,255,255,0.22)),
-        linear-gradient(135deg, #f2e8df, #e7d7cb 60%, #dcc7b7);
-    }
-
-    .piano-visual .keys {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 24px;
-      height: 130px;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 4px;
-    }
-
-    .piano-visual .key {
-      background: rgba(255,255,255,0.92);
-      border-radius: 0 0 12px 12px;
-      border: 1px solid rgba(82, 64, 52, 0.08);
-      box-shadow: inset 0 -8px 18px rgba(0,0,0,0.04);
-      position: relative;
-    }
-
-    .piano-visual .key.black::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 62%;
-      transform: translateX(-50%);
-      width: 62%;
-      height: 62%;
-      border-radius: 0 0 9px 9px;
-      background: #2f2a27;
-    }
-
-    .note {
-      position: absolute;
-      color: rgba(148,113,92,0.34);
-      font-family: "Cormorant Garamond", serif;
-      font-size: 3rem;
-      user-select: none;
-    }
-
-    .note.n1 { top: 34px; left: 28px; }
-    .note.n2 { top: 72px; right: 34px; font-size: 4rem; }
-    .note.n3 { top: 130px; left: 43%; font-size: 2.8rem; }
-
-    .mini-card {
-      padding: 22px;
-    }
-
-    .mini-card strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1rem;
-    }
-
-    .mini-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 24px;
-    }
-
-    .stat {
-      padding: 22px;
-      border-radius: var(--radius-lg);
-      background: rgba(255,255,255,0.64);
-      border: 1px solid var(--line);
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2.3rem;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .stat-text {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.66);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      box-shadow: var(--shadow);
-    }
-
-    .card h3 {
-      margin: 0 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.9rem;
-      font-weight: 600;
-    }
-
-    .card p,
-    .card li {
-      color: var(--muted);
-      font-size: 0.98rem;
-    }
-
-    .card ul {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .soft-block {
-      padding: 34px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.34));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .soft-block h3 {
-      margin: 0 0 16px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2rem;
-      font-weight: 600;
-    }
-
-    .soft-block ul {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    .about-wrap {
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .portrait-card {
-      min-height: 500px;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      position: relative;
-      background:
-        linear-gradient(to top, rgba(42,37,34,0.12), rgba(42,37,34,0.02)),
-        linear-gradient(135deg, #eaded2, #f5eee7 45%, #dfcbbd);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .portrait-card .portrait-text {
-      position: absolute;
-      left: 28px;
-      bottom: 28px;
-      right: 28px;
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.56);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.65);
-    }
-
-    .portrait-card .portrait-text span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-top: 8px;
-    }
-
-    .about-text {
-      padding: 8px 4px;
-    }
-
-    .about-text h2 {
-      text-align: left;
-      margin-bottom: 18px;
-    }
-
-    .about-text p {
-      color: var(--muted);
-      font-size: 1rem;
-      margin: 0 0 16px;
-    }
-
-    .edu-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 26px;
-    }
-
-    .edu-item {
-      padding: 18px 20px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.58);
-      border: 1px solid var(--line);
-    }
-
-    .edu-item strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 1rem;
-    }
-
-    .edu-item span {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .quote-section {
-      padding-top: 24px;
-    }
-
-    .quote-box {
-      padding: 38px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(135deg, #ece2d9, #f6f0ea);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .quote-box p {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      line-height: 1.15;
-      color: var(--text);
-    }
-
-    .contacts {
-      padding-bottom: 92px;
-    }
-
-    .contact-box {
-      padding: 42px;
-      border-radius: 32px;
-      background:
-        linear-gradient(160deg, rgba(255,255,255,0.78), rgba(255,255,255,0.5)),
-        var(--bg-soft);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 18px;
-      align-items: center;
-    }
-
-    .contact-info h2 {
-      text-align: left;
-      margin-bottom: 12px;
-    }
-
-    .contact-info p {
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    footer {
-      padding: 28px 0 46px;
-      color: var(--muted);
-      font-size: 0.92rem;
-      text-align: center;
-    }
-
-    @media (max-width: 980px) {
-      .hero-grid,
-      .about-wrap,
-      .two-col,
-      .contact-grid,
-      .grid-3,
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card {
-        padding: 34px 24px;
-      }
-
-      .hero h1 {
-        font-size: clamp(2.6rem, 11vw, 4.2rem);
-      }
-
-      .piano-visual {
-        min-height: 300px;
-      }
-
-      .portrait-card {
-        min-height: 360px;
-      }
-
-      .about-text h2,
-      .contact-info h2 {
-        text-align: center;
-      }
-
-      .contact-grid {
-        text-align: center;
-      }
-
-      .contact-links,
-      .hero-actions,
-      .hero-meta,
-      .nav {
-        justify-content: center;
-      }
-
-      .topbar-inner {
-        padding: 12px 0;
-        justify-content: center;
-        text-align: center;
-      }
-
-      .brand {
-        width: 100%;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .section {
-        padding: 68px 0;
-      }
-
-      .container {
-        width: min(var(--max), calc(100% - 20px));
-      }
-
-      .hero {
-        padding-top: 26px;
-      }
-
-      .hero-card,
-      .contact-box,
-      .soft-block,
-      .card {
-        padding: 24px 18px;
-      }
-
-      .section-title {
-        font-size: 2.2rem;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a href="#top" class="brand">piano_aida</a>
-      <nav class="nav">
-        <a href="#forwhom">Для кого</a>
-        <a href="#format">Формат</a>
-        <a href="#about">Обо мне</a>
-        <a href="#contacts">Контакты</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-card">
-          <span class="eyebrow">Уроки фортепиано в Астане и онлайн</span>
-          <h1>Музыка, к которой хочется возвращаться</h1>
-          <p class="lead">
-            Индивидуальные занятия для детей и взрослых: спокойно, красиво и с выстроенной системой.
-            Помогаю освоить фортепиано с нуля или продолжить обучение уверенно и с удовольствием.
-          </p>
-
-          <div class="hero-meta">
-            <div class="meta-pill">45 минут</div>
-            <div class="meta-pill">индивидуально</div>
-            <div class="meta-pill">от 7 лет</div>
-            <div class="meta-pill">Астана + онлайн</div>
-          </div>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://wa.me/77712277021" target="_blank" rel="noopener noreferrer">Записаться в WhatsApp</a>
-            <a class="btn btn-secondary" href="#about">Узнать обо мне</a>
-          </div>
-
-          <div class="stats">
-            <div class="stat">
-              <div class="stat-number">5+</div>
-              <div class="stat-text">лет преподавания</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">70+</div>
-              <div class="stat-text">учеников</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">15+</div>
-              <div class="stat-text">лет игры на фортепиано</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-aside">
-          <div class="glass-card piano-visual" aria-hidden="true">
-            <div class="note n1">♪</div>
-            <div class="note n2">♫</div>
-            <div class="note n3">♩</div>
-            <div class="keys">
-              <div class="key black"></div>
-              <div class="key"></div>
-              <div class="key black"></div>
-              <div class="key"></div>
-              <div class="key black"></div>
-              <div class="key"></div>
-              <div class="key"></div>
-              <div class="key black"></div>
-              <div class="key"></div>
-              <div class="key black"></div>
-              <div class="key"></div>
-              <div class="key black"></div>
-            </div>
-          </div>
-
-          <div class="glass-card mini-card">
-            <strong>Адрес занятий</strong>
-            <p>Кабанбай батыра 29/1, блок Б<br />Астана</p>
-          </div>
-
-          <div class="glass-card mini-card">
-            <strong>Формат</strong>
-            <p>Офлайн и онлайн. Удобно для тех, кто хочет заниматься из дома или приходить на уроки лично.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="forwhom" class="section">
-      <div class="container">
-        <h2 class="section-title">Кому подойдут мои занятия</h2>
-        <p class="section-subtitle">
-          Уроки подходят тем, кто хочет не просто нажимать клавиши, а действительно понимать музыку,
-          слышать её и чувствовать себя уверенно за инструментом.
-        </p>
-
-        <div class="grid-3">
-          <article class="card">
-            <h3>Детям</h3>
-            <p>От 7 лет. Мягкое, последовательное обучение с вниманием к слуху, ритму, постановке рук и интересу ребёнка к музыке.</p>
-          </article>
-
-          <article class="card">
-            <h3>Взрослым</h3>
-            <p>Тем, кто давно мечтал научиться играть для себя, снять внутренний барьер и начать красиво звучать без спешки и давления.</p>
-          </article>
-
-          <article class="card">
-            <h3>Продолжающим</h3>
-            <p>Ученикам, которые уже знакомы с инструментом и хотят укрепить базу, улучшить технику и играть осознаннее.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="format" class="section">
-      <div class="container">
-        <h2 class="section-title">Формат занятий</h2>
-        <p class="section-subtitle">
-          Каждое занятие выстраивается индивидуально под возраст, уровень и цель ученика.
-        </p>
-
-        <div class="two-col">
-          <div class="soft-block">
-            <h3>Как проходят уроки</h3>
-            <ul>
-              <li>индивидуальные занятия</li>
-              <li>длительность урока — 45 минут</li>
-              <li>рекомендуемая частота — 2–3 раза в неделю</li>
-              <li>занятия офлайн в Астане и онлайн</li>
-            </ul>
-          </div>
-
-          <div class="soft-block">
-            <h3>Что входит в обучение</h3>
-            <ul>
-              <li>выстроенная система занятий</li>
-              <li>обучение нотной грамоте</li>
-              <li>развитие чувства ритма</li>
-              <li>развитие слуха и музыкальности</li>
-              <li>работа над техникой и свободой игры</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="container about-wrap">
-        <div class="portrait-card">
-          <div class="portrait-text">
-            <strong style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600;">Аида</strong>
-            <span>Преподаватель фортепиано</span>
-          </div>
-        </div>
-
-        <div class="about-text">
-          <h2 class="section-title">Обо мне</h2>
-          <p>
-            Меня зовут Аида. Я преподаю фортепиано более 5 лет и за это время обучила
-            70+ учеников игре на инструменте.
-          </p>
-          <p>
-            Для меня важно, чтобы ученик не просто повторял материал, а понимал, что и зачем он делает.
-            На уроках я соединяю систему, внимательность к деталям и живой интерес к музыке.
-          </p>
-          <p>
-            Мой подход подойдёт тем, кто ценит красивую подачу, спокойную атмосферу и постепенный, но уверенный результат.
-          </p>
-
-          <div class="edu-list">
-            <div class="edu-item">
-              <strong>Актюбинский музыкальный колледж</strong>
-              <span>класс фортепиано</span>
-            </div>
-            <div class="edu-item">
-              <strong>Казахский национальный университет искусств</strong>
-              <span>специальность — фортепиано</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section quote-section">
-      <div class="container">
-        <div class="quote-box">
-          <p>Фортепиано — это не только навык, но и способ слышать себя тоньше.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="contacts" class="section contacts">
-      <div class="container">
-        <div class="contact-box">
-          <div class="contact-grid">
-            <div class="contact-info">
-              <h2 class="section-title">Запись на урок</h2>
-              <p>Чтобы узнать стоимость, свободные места и подобрать удобное время, напишите в WhatsApp.</p>
-              <p><strong>Адрес:</strong> Кабанбай батыра 29/1, блок Б, Астана</p>
-              <p><strong>Телефон / WhatsApp:</strong> +7 771 227 7021</p>
-            </div>
-
-            <div class="contact-links">
-              <a class="btn btn-primary" href="https://wa.me/77712277021" target="_blank" rel="noopener noreferrer">Написать в WhatsApp</a>
-              <a class="btn btn-secondary" href="tel:+77712277021">Позвонить</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      piano_aida © 2026
-    </div>
-  </footer>
-</body>
-</html>
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>Piano Aida — Уроки фортепиано</title>  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  
+  
+  <style>  
+    * {  
+      box-sizing: border-box;  
+    }  
+  
+    html {  
+      scroll-behavior: smooth;  
+    }  
+  
+    body {  
+      margin: 0;  
+      font-family: 'Inter', sans-serif;  
+      background: #f8f4ef;  
+      color: #2b2521;  
+      line-height: 1.7;  
+    }  
+  
+    img {  
+      max-width: 100%;  
+      display: block;  
+    }  
+  
+    a {  
+      color: inherit;  
+      text-decoration: none;  
+    }  
+  
+    .container {  
+      width: min(1100px, calc(100% - 40px));  
+      margin: 0 auto;  
+    }  
+  
+    .hero {  
+      min-height: 100vh;  
+      display: flex;  
+      align-items: center;  
+      padding: 80px 0;  
+      background:  
+        linear-gradient(rgba(248, 244, 239, 0.72), rgba(248, 244, 239, 0.9)),  
+        url('https://images.unsplash.com/photo-1514119412350-e174d90d280e?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;  
+    }  
+  
+    .hero__content {  
+      max-width: 720px;  
+    }  
+  
+    .hero__label {  
+      display: inline-block;  
+      margin-bottom: 18px;  
+      padding: 8px 14px;  
+      border-radius: 999px;  
+      background: rgba(184, 145, 122, 0.12);  
+      color: #7a5e4b;  
+      font-size: 14px;  
+      letter-spacing: 0.04em;  
+    }  
+  
+    .hero h1 {  
+      margin: 0 0 18px;  
+      font-family: 'Cormorant Garamond', serif;  
+      font-size: clamp(48px, 9vw, 86px);  
+      line-height: 0.95;  
+      font-weight: 600;  
+    }  
+  
+    .hero p {  
+      max-width: 620px;  
+      margin: 0 0 30px;  
+      font-size: 18px;  
+      color: #5f554d;  
+    }  
+  
+    .hero__meta {  
+      display: flex;  
+      flex-wrap: wrap;  
+      gap: 12px;  
+      margin-bottom: 30px;  
+    }  
+  
+    .hero__meta span {  
+      padding: 10px 14px;  
+      border-radius: 999px;  
+      background: rgba(255, 255, 255, 0.65);  
+      backdrop-filter: blur(6px);  
+      font-size: 14px;  
+      color: #4c433d;  
+    }  
+  
+    .hero__actions {  
+      display: flex;  
+      flex-wrap: wrap;  
+      gap: 14px;  
+    }  
+  
+    .btn {  
+      display: inline-flex;  
+      align-items: center;  
+      justify-content: center;  
+      padding: 15px 28px;  
+      border-radius: 999px;  
+      background: #b8917a;  
+      color: white;  
+      font-weight: 600;  
+      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;  
+      box-shadow: 0 10px 25px rgba(184, 145, 122, 0.22);  
+    }  
+  
+    .btn:hover {  
+      transform: translateY(-2px);  
+      opacity: 0.96;  
+    }  
+  
+    .btn--light {  
+      background: transparent;  
+      color: #2b2521;  
+      border: 1px solid rgba(43, 37, 33, 0.14);  
+      box-shadow: none;  
+    }  
+  
+    .section {  
+      padding: 88px 0;  
+    }  
+  
+    .section--light {  
+      background: #f1e9e1;  
+    }  
+  
+    .section__head {  
+      max-width: 720px;  
+      margin: 0 auto 42px;  
+      text-align: center;  
+    }  
+  
+    .section__eyebrow {  
+      margin-bottom: 10px;  
+      color: #8a6c57;  
+      font-size: 14px;  
+      letter-spacing: 0.08em;  
+      text-transform: uppercase;  
+    }  
+  
+    .section h2 {  
+      margin: 0 0 16px;  
+      font-family: 'Cormorant Garamond', serif;  
+      font-size: clamp(34px, 5vw, 54px);  
+      line-height: 1.05;  
+      font-weight: 600;  
+    }  
+  
+    .section__desc {  
+      margin: 0;  
+      color: #645a53;  
+      font-size: 17px;  
+    }  
+  
+    .cards {  
+      display: grid;  
+      grid-template-columns: repeat(3, 1fr);  
+      gap: 20px;  
+    }  
+  
+    .card {  
+      padding: 28px 24px;  
+      border-radius: 24px;  
+      background: rgba(255, 255, 255, 0.72);  
+      border: 1px solid rgba(43, 37, 33, 0.06);  
+      box-shadow: 0 16px 40px rgba(43, 37, 33, 0.06);  
+    }  
+  
+    .card h3 {  
+      margin: 0 0 12px;  
+      font-family: 'Cormorant Garamond', serif;  
+      font-size: 30px;  
+      font-weight: 600;  
+    }  
+  
+    .card p,  
+    .card li {  
+      color: #5e544c;  
+      font-size: 16px;  
+    }  
+  
+    .card ul {  
+      margin: 0;  
+      padding-left: 18px;  
+    }  
+  
+    .about {  
+      display: grid;  
+      grid-template-columns: 1.05fr 0.95fr;  
+      gap: 32px;  
+      align-items: center;  
+    }  
+  
+    .about__photo img {  
+      width: 100%;  
+      height: 100%;  
+      min-height: 500px;  
+      object-fit: cover;  
+      border-radius: 28px;  
+      box-shadow: 0 18px 50px rgba(43, 37, 33, 0.12);  
+    }  
+  
+    .about__text {  
+      background: rgba(255, 255, 255, 0.62);  
+      border-radius: 28px;  
+      padding: 34px 30px;  
+    }  
+  
+    .about__stats {  
+      display: flex;  
+      flex-wrap: wrap;  
+      gap: 14px;  
+      margin: 24px 0;  
+    }  
+  
+    .about__stats div {  
+      padding: 14px 18px;  
+      border-radius: 18px;  
+      background: #efe7df;  
+      min-width: 140px;  
+    }  
+  
+    .about__stats strong {  
+      display: block;  
+      font-size: 24px;  
+      margin-bottom: 4px;  
+    }  
+  
+    .about__text p {  
+      margin: 0 0 14px;  
+      color: #564d46;  
+    }  
+  
+    .about__text ul {  
+      margin: 0;  
+      padding-left: 18px;  
+      color: #564d46;  
+    }  
+  
+    .contact-box {  
+      text-align: center;  
+      padding: 42px 28px;  
+      border-radius: 30px;  
+      background: linear-gradient(180deg, #f4ece5, #efe4da);  
+      box-shadow: 0 18px 45px rgba(43, 37, 33, 0.08);  
+    }  
+  
+    .contact-box p {  
+      margin: 10px 0;  
+      color: #5d534c;  
+      font-size: 17px;  
+    }  
+  
+    .footer {  
+      padding: 28px 0 40px;  
+      text-align: center;  
+      color: #7b7068;  
+      font-size: 14px;  
+    }  
+  
+    @media (max-width: 900px) {  
+      .cards {  
+        grid-template-columns: 1fr;  
+      }  
+  
+      .about {  
+        grid-template-columns: 1fr;  
+      }  
+  
+      .about__photo img {  
+        min-height: 340px;  
+      }  
+  
+      .section {  
+        padding: 72px 0;  
+      }  
+    }  
+  
+    @media (max-width: 640px) {  
+      .hero {  
+        min-height: auto;  
+        padding: 90px 0 72px;  
+      }  
+  
+      .hero p {  
+        font-size: 16px;  
+      }  
+  
+      .hero__actions {  
+        flex-direction: column;  
+        align-items: stretch;  
+      }  
+  
+      .btn {  
+        width: 100%;  
+      }  
+  
+      .container {  
+        width: min(1100px, calc(100% - 28px));  
+      }  
+  
+      .card {  
+        padding: 24px 20px;  
+      }  
+  
+      .about__text {  
+        padding: 28px 22px;  
+      }  
+    }  
+  </style>  
+</head>  
+<body>  
+  
+  <header class="hero">  
+    <div class="container">  
+      <div class="hero__content">  
+        <span class="hero__label">Уроки фортепиано в Астане и онлайн</span>  
+        <h1>Piano Aida</h1>  
+        <p>  
+          Индивидуальные занятия для детей и взрослых.  
+          С нуля и для продолжающих учеников в эстетичной, спокойной атмосфере.  
+        </p>  
+  
+        <div class="hero__meta">  
+          <span>45 минут</span>  
+          <span>Онлайн и офлайн</span>  
+          <span>Астана, Кабанбай батыра 29/1, блок Б</span>  
+        </div>  
+  
+        <div class="hero__actions">  
+          <a class="btn" href="https://wa.me/77712277021" target="_blank">Записаться на урок</a>  
+          <a class="btn btn--light" href="#about">Обо мне</a>  
+        </div>  
+      </div>  
+    </div>  
+  </header>  
+  
+  <section class="section">  
+    <div class="container">  
+      <div class="section__head">  
+        <div class="section__eyebrow">Для кого</div>  
+        <h2>Кому подойдут мои занятия</h2>  
+        <p class="section__desc">  
+          Уроки подстраиваются под возраст, уровень подготовки и цель ученика.  
+        </p>  
+      </div>  
+  
+      <div class="cards">  
+        <div class="card">  
+          <h3>Детям</h3>  
+          <p>Занятия для детей от 7 лет с постепенным и понятным освоением инструмента.</p>  
+        </div>  
+  
+        <div class="card">  
+          <h3>Взрослым</h3>  
+          <p>Для тех, кто давно мечтал научиться играть и хочет начать в комфортном темпе.</p>  
+        </div>  
+  
+        <div class="card">  
+          <h3>Продолжающим</h3>  
+          <p>Для учеников, которые уже имеют базу и хотят развивать технику, слух и музыкальность.</p>  
+        </div>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <section class="section section--light">  
+    <div class="container">  
+      <div class="section__head">  
+        <div class="section__eyebrow">Занятия</div>  
+        <h2>Формат уроков</h2>  
+      </div>  
+  
+      <div class="cards">  
+        <div class="card">  
+          <h3>Индивидуально</h3>  
+          <p>Каждый урок строится под конкретного ученика и его задачи.</p>  
+        </div>  
+  
+        <div class="card">  
+          <h3>45 минут</h3>  
+          <p>Оптимальная длительность, чтобы совмещать теорию, практику и развитие навыков.</p>  
+        </div>  
+  
+        <div class="card">  
+          <h3>2–3 раза в неделю</h3>  
+          <p>Регулярный формат занятий для стабильного прогресса и уверенного результата.</p>  
+        </div>  
+      </div>  
+  
+      <div style="height:20px;"></div>  
+  
+      <div class="card">  
+        <h3>На занятиях</h3>  
+        <ul>  
+          <li>выстроенная методика обучения</li>  
+          <li>обучение нотной грамоте</li>  
+          <li>развитие чувства ритма</li>  
+          <li>развитие слуха</li>  
+        </ul>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <section class="section" id="about">  
+    <div class="container">  
+      <div class="about">  
+        <div class="about__photo">  
+          <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=1200&q=80" alt="Фортепиано">  
+        </div>  
+  
+        <div class="about__text">  
+          <div class="section__eyebrow">Обо мне</div>  
+          <h2>Аида — преподаватель фортепиано</h2>  
+  
+          <p>  
+            Меня зовут Аида. Я преподаю фортепиано более 5 лет.  
+            За это время обучила 70+ учеников игре на фортепиано.  
+          </p>  
+  
+          <div class="about__stats">  
+            <div>  
+              <strong>5+ лет</strong>  
+              опыт преподавания  
+            </div>  
+            <div>  
+              <strong>70+</strong>  
+              учеников  
+            </div>  
+            <div>  
+              <strong>15+ лет</strong>  
+              в музыке  
+            </div>  
+          </div>  
+  
+          <p><strong>Образование:</strong></p>  
+          <ul>  
+            <li>Актюбинский музыкальный колледж по классу фортепиано</li>  
+            <li>Казахский национальный университет искусств — фортепиано</li>  
+          </ul>  
+        </div>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <section class="section section--light">  
+    <div class="container">  
+      <div class="contact-box">  
+        <div class="section__eyebrow">Контакты</div>  
+        <h2>Запись на занятия</h2>  
+        <p>Адрес: Кабанбай батыра 29/1, блок Б, Астана</p>  
+        <p>WhatsApp: +7 771 227 7021</p>  
+        <a class="btn" href="https://wa.me/77712277021" target="_blank">Записаться в WhatsApp</a>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <footer class="footer">  
+    <div class="container">  
+      Piano Aida © 2026  
+    </div>  
+  </footer>  
+  
+</body>  
+</html>  
