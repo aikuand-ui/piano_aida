@@ -7,11 +7,27 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">  
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">  
   
   <style>  
     * {  
       box-sizing: border-box;  
+    }  
+  
+    :root {  
+      --bg: #f6f1ec;  
+      --bg-soft: #efe6de;  
+      --card: #f2ebe4;  
+      --accent: #c68474;  
+      --accent-dark: #ae6d5f;  
+      --text: #2f2926;  
+      --muted: #6a605a;  
+      --line: #ddcfc3;  
+      --white: #ffffff;  
+      --shadow: 0 18px 40px rgba(63, 45, 37, 0.08);  
+      --radius-xl: 34px;  
+      --radius-lg: 26px;  
+      --radius-md: 20px;  
     }  
   
     html {  
@@ -20,10 +36,10 @@
   
     body {  
       margin: 0;  
+      background: var(--bg);  
+      color: var(--text);  
       font-family: 'Inter', sans-serif;  
-      background: #f8f4ef;  
-      color: #2b2521;  
-      line-height: 1.7;  
+      line-height: 1.6;  
     }  
   
     img {  
@@ -32,69 +48,194 @@
     }  
   
     a {  
-      color: inherit;  
       text-decoration: none;  
+      color: inherit;  
     }  
   
     .container {  
-      width: min(1100px, calc(100% - 40px));  
+      width: min(1180px, calc(100% - 48px));  
       margin: 0 auto;  
     }  
   
-    .hero {  
-      min-height: 100vh;  
+    .section {  
+      padding: 88px 0;  
+    }  
+  
+    .eyebrow {  
+      font-size: 13px;  
+      letter-spacing: 0.12em;  
+      text-transform: uppercase;  
+      color: var(--accent-dark);  
+      margin-bottom: 12px;  
+    }  
+  
+    h1, h2, h3 {  
+      font-family: 'Cormorant Garamond', serif;  
+      font-weight: 600;  
+      margin: 0;  
+      line-height: 0.98;  
+    }  
+  
+    h1 {  
+      font-size: clamp(52px, 7vw, 96px);  
+    }  
+  
+    h2 {  
+      font-size: clamp(38px, 5vw, 62px);  
+      margin-bottom: 18px;  
+    }  
+  
+    h3 {  
+      font-size: 34px;  
+      margin-bottom: 10px;  
+    }  
+  
+    p {  
+      margin: 0;  
+      color: var(--muted);  
+      font-size: 17px;  
+    }  
+  
+    .btn {  
+      display: inline-flex;  
+      align-items: center;  
+      justify-content: center;  
+      min-height: 54px;  
+      padding: 0 30px;  
+      background: var(--accent);  
+      color: var(--white);  
+      border-radius: 999px;  
+      font-size: 15px;  
+      font-weight: 600;  
+      transition: 0.25s ease;  
+      box-shadow: 0 10px 24px rgba(198, 132, 116, 0.22);  
+    }  
+  
+    .btn:hover {  
+      transform: translateY(-2px);  
+      background: var(--accent-dark);  
+    }  
+  
+    .btn-outline {  
+      background: transparent;  
+      color: var(--text);  
+      border: 1px solid var(--line);  
+      box-shadow: none;  
+    }  
+  
+    .topbar {  
+      padding: 26px 0 10px;  
+    }  
+  
+    .topbar__row {  
       display: flex;  
       align-items: center;  
-      padding: 80px 0;  
-      background:  
-        linear-gradient(rgba(248, 244, 239, 0.72), rgba(248, 244, 239, 0.9)),  
-        url('https://images.unsplash.com/photo-1514119412350-e174d90d280e?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;  
+      justify-content: space-between;  
+      gap: 20px;  
     }  
   
-    .hero__content {  
-      max-width: 720px;  
-    }  
-  
-    .hero__label {  
-      display: inline-block;  
-      margin-bottom: 18px;  
-      padding: 8px 14px;  
-      border-radius: 999px;  
-      background: rgba(184, 145, 122, 0.12);  
-      color: #7a5e4b;  
-      font-size: 14px;  
-      letter-spacing: 0.04em;  
-    }  
-  
-    .hero h1 {  
-      margin: 0 0 18px;  
+    .logo {  
       font-family: 'Cormorant Garamond', serif;  
-      font-size: clamp(48px, 9vw, 86px);  
+      font-size: 32px;  
       line-height: 0.95;  
-      font-weight: 600;  
+      max-width: 180px;  
     }  
   
-    .hero p {  
-      max-width: 620px;  
-      margin: 0 0 30px;  
+    .nav {  
+      display: flex;  
+      align-items: center;  
+      gap: 34px;  
+      font-size: 14px;  
+      color: var(--text);  
+    }  
+  
+    .hero {  
+      padding: 28px 0 78px;  
+    }  
+  
+    .hero__grid {  
+      display: grid;  
+      grid-template-columns: 0.95fr 1.05fr;  
+      gap: 60px;  
+      align-items: center;  
+    }  
+  
+    .hero__visual {  
+      position: relative;  
+      display: flex;  
+      justify-content: center;  
+      align-items: center;  
+      min-height: 520px;  
+    }  
+  
+    .hero__arch {  
+      width: min(100%, 430px);  
+      aspect-ratio: 0.82 / 1;  
+      border-radius: 240px 240px 22px 22px;  
+      overflow: hidden;  
+      background: var(--bg-soft);  
+      box-shadow: var(--shadow);  
+      position: relative;  
+      z-index: 2;  
+    }  
+  
+    .hero__arch img {  
+      width: 100%;  
+      height: 100%;  
+      object-fit: cover;  
+    }  
+  
+    .hero__ring {  
+      position: absolute;  
+      width: 520px;  
+      height: 260px;  
+      border: 1.5px solid #d9b3aa;  
+      border-radius: 50%;  
+      transform: rotate(-10deg);  
+      z-index: 1;  
+      opacity: 0.9;  
+    }  
+  
+    .hero__badge {  
+      position: absolute;  
+      right: 40px;  
+      bottom: 46px;  
+      width: 92px;  
+      height: 92px;  
+      border-radius: 50%;  
+      background: #bb5d38;  
+      color: white;  
+      display: grid;  
+      place-items: center;  
+      font-family: 'Cormorant Garamond', serif;  
+      font-size: 28px;  
+      z-index: 3;  
+      box-shadow: 0 14px 24px rgba(187, 93, 56, 0.25);  
+    }  
+  
+    .hero__content p {  
+      max-width: 540px;  
+      margin-top: 18px;  
+      margin-bottom: 28px;  
       font-size: 18px;  
-      color: #5f554d;  
     }  
   
     .hero__meta {  
-      display: flex;  
-      flex-wrap: wrap;  
-      gap: 12px;  
+      display: grid;  
+      gap: 10px;  
       margin-bottom: 30px;  
+      max-width: 520px;  
     }  
   
     .hero__meta span {  
-      padding: 10px 14px;  
+      display: inline-block;  
+      width: fit-content;  
+      padding: 10px 16px;  
       border-radius: 999px;  
-      background: rgba(255, 255, 255, 0.65);  
-      backdrop-filter: blur(6px);  
+      background: rgba(255,255,255,0.6);  
+      border: 1px solid #e8ddd3;  
+      color: #5a4f49;  
       font-size: 14px;  
-      color: #4c433d;  
     }  
   
     .hero__actions {  
@@ -103,199 +244,293 @@
       gap: 14px;  
     }  
   
-    .btn {  
-      display: inline-flex;  
+    .split {  
+      display: grid;  
+      grid-template-columns: 1fr 1fr;  
+      gap: 54px;  
       align-items: center;  
-      justify-content: center;  
-      padding: 15px 28px;  
-      border-radius: 999px;  
-      background: #b8917a;  
-      color: white;  
-      font-weight: 600;  
-      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;  
-      box-shadow: 0 10px 25px rgba(184, 145, 122, 0.22);  
     }  
   
-    .btn:hover {  
-      transform: translateY(-2px);  
-      opacity: 0.96;  
-    }  
-  
-    .btn--light {  
-      background: transparent;  
-      color: #2b2521;  
-      border: 1px solid rgba(43, 37, 33, 0.14);  
-      box-shadow: none;  
-    }  
-  
-    .section {  
-      padding: 88px 0;  
-    }  
-  
-    .section--light {  
-      background: #f1e9e1;  
-    }  
-  
-    .section__head {  
-      max-width: 720px;  
-      margin: 0 auto 42px;  
-      text-align: center;  
-    }  
-  
-    .section__eyebrow {  
-      margin-bottom: 10px;  
-      color: #8a6c57;  
-      font-size: 14px;  
-      letter-spacing: 0.08em;  
-      text-transform: uppercase;  
-    }  
-  
-    .section h2 {  
-      margin: 0 0 16px;  
-      font-family: 'Cormorant Garamond', serif;  
-      font-size: clamp(34px, 5vw, 54px);  
-      line-height: 1.05;  
-      font-weight: 600;  
-    }  
-  
-    .section__desc {  
-      margin: 0;  
-      color: #645a53;  
+    .text-list {  
+      margin-top: 24px;  
+      display: grid;  
+      gap: 12px;  
+      color: var(--muted);  
       font-size: 17px;  
+    }  
+  
+    .text-list div {  
+      position: relative;  
+      padding-left: 18px;  
+    }  
+  
+    .text-list div::before {  
+      content: "•";  
+      position: absolute;  
+      left: 0;  
+      top: 0;  
+      color: var(--accent);  
+    }  
+  
+    .image-card {  
+      border-radius: 160px 26px 26px 26px;  
+      overflow: hidden;  
+      box-shadow: var(--shadow);  
+      background: var(--card);  
+      min-height: 440px;  
+    }  
+  
+    .image-card img {  
+      width: 100%;  
+      height: 100%;  
+      object-fit: cover;  
+    }  
+  
+    .section-center {  
+      text-align: center;  
     }  
   
     .cards {  
+      margin-top: 38px;  
       display: grid;  
       grid-template-columns: repeat(3, 1fr);  
-      gap: 20px;  
+      gap: 22px;  
     }  
   
     .card {  
-      padding: 28px 24px;  
+      background: var(--card);  
       border-radius: 24px;  
-      background: rgba(255, 255, 255, 0.72);  
-      border: 1px solid rgba(43, 37, 33, 0.06);  
-      box-shadow: 0 16px 40px rgba(43, 37, 33, 0.06);  
+      overflow: hidden;  
+      box-shadow: var(--shadow);  
     }  
   
-    .card h3 {  
-      margin: 0 0 12px;  
-      font-family: 'Cormorant Garamond', serif;  
-      font-size: 30px;  
-      font-weight: 600;  
+    .card__image {  
+      aspect-ratio: 1.12 / 1;  
+      overflow: hidden;  
     }  
   
-    .card p,  
-    .card li {  
-      color: #5e544c;  
-      font-size: 16px;  
-    }  
-  
-    .card ul {  
-      margin: 0;  
-      padding-left: 18px;  
-    }  
-  
-    .about {  
-      display: grid;  
-      grid-template-columns: 1.05fr 0.95fr;  
-      gap: 32px;  
-      align-items: center;  
-    }  
-  
-    .about__photo img {  
+    .card__image img {  
       width: 100%;  
       height: 100%;  
-      min-height: 500px;  
       object-fit: cover;  
-      border-radius: 28px;  
-      box-shadow: 0 18px 50px rgba(43, 37, 33, 0.12);  
     }  
   
-    .about__text {  
-      background: rgba(255, 255, 255, 0.62);  
-      border-radius: 28px;  
-      padding: 34px 30px;  
+    .card__body {  
+      padding: 24px 22px 26px;  
     }  
   
-    .about__stats {  
-      display: flex;  
-      flex-wrap: wrap;  
-      gap: 14px;  
-      margin: 24px 0;  
+    .card__title {  
+      font-family: 'Cormorant Garamond', serif;  
+      font-size: 30px;  
+      margin-bottom: 10px;  
     }  
   
-    .about__stats div {  
-      padding: 14px 18px;  
-      border-radius: 18px;  
-      background: #efe7df;  
-      min-width: 140px;  
+    .card__body p {  
+      min-height: 78px;  
+      font-size: 15px;  
     }  
   
-    .about__stats strong {  
-      display: block;  
-      font-size: 24px;  
-      margin-bottom: 4px;  
+    .card__btn {  
+      margin-top: 20px;  
     }  
   
-    .about__text p {  
-      margin: 0 0 14px;  
-      color: #564d46;  
+    .steps {  
+      margin-top: 38px;  
+      display: grid;  
+      grid-template-columns: repeat(3, 1fr);  
+      gap: 26px;  
+      align-items: start;  
     }  
   
-    .about__text ul {  
-      margin: 0;  
-      padding-left: 18px;  
-      color: #564d46;  
-    }  
-  
-    .contact-box {  
+    .step {  
       text-align: center;  
-      padding: 42px 28px;  
-      border-radius: 30px;  
-      background: linear-gradient(180deg, #f4ece5, #efe4da);  
-      box-shadow: 0 18px 45px rgba(43, 37, 33, 0.08);  
+      position: relative;  
     }  
   
-    .contact-box p {  
-      margin: 10px 0;  
-      color: #5d534c;  
-      font-size: 17px;  
+    .step__photo {  
+      width: 180px;  
+      height: 180px;  
+      margin: 0 auto 18px;  
+      border-radius: 50%;  
+      overflow: hidden;  
+      box-shadow: var(--shadow);  
+    }  
+  
+    .step__photo img {  
+      width: 100%;  
+      height: 100%;  
+      object-fit: cover;  
+    }  
+  
+    .step p {  
+      max-width: 240px;  
+      margin: 0 auto;  
+      font-size: 15px;  
+    }  
+  
+    .step:not(:last-child)::after {  
+      content: "→";  
+      position: absolute;  
+      right: -14px;  
+      top: 70px;  
+      color: #c8a092;  
+      font-size: 34px;  
+      font-family: 'Cormorant Garamond', serif;  
+    }  
+  
+    .banner {  
+      background: var(--accent);  
+      color: white;  
+      border-radius: 36px;  
+      overflow: hidden;  
+      display: grid;  
+      grid-template-columns: 220px 1fr auto;  
+      align-items: center;  
+      margin-top: 26px;  
+      box-shadow: 0 18px 36px rgba(198, 132, 116, 0.2);  
+    }  
+  
+    .banner__image {  
+      height: 100%;  
+      min-height: 180px;  
+      overflow: hidden;  
+      border-radius: 36px 0 0 36px;  
+    }  
+  
+    .banner__image img {  
+      width: 100%;  
+      height: 100%;  
+      object-fit: cover;  
+    }  
+  
+    .banner__content {  
+      padding: 34px 28px;  
+    }  
+  
+    .banner__content h2 {  
+      margin-bottom: 10px;  
+      font-size: clamp(34px, 4vw, 54px);  
+    }  
+  
+    .banner__content p {  
+      color: rgba(255,255,255,0.88);  
+      max-width: 560px;  
+    }  
+  
+    .banner__action {  
+      padding: 0 30px;  
+    }  
+  
+    .banner .btn {  
+      background: white;  
+      color: var(--accent-dark);  
+      box-shadow: none;  
     }  
   
     .footer {  
-      padding: 28px 0 40px;  
-      text-align: center;  
-      color: #7b7068;  
+      padding: 40px 0 46px;  
+    }  
+  
+    .footer__row {  
+      display: flex;  
+      align-items: center;  
+      justify-content: space-between;  
+      gap: 24px;  
+      border-top: 1px solid #e7d9cd;  
+      padding-top: 28px;  
+    }  
+  
+    .footer__nav {  
+      display: flex;  
+      gap: 28px;  
       font-size: 14px;  
     }  
   
-    @media (max-width: 900px) {  
-      .cards {  
+    .footer__socials {  
+      display: flex;  
+      gap: 10px;  
+    }  
+  
+    .footer__socials span {  
+      width: 34px;  
+      height: 34px;  
+      border-radius: 50%;  
+      display: grid;  
+      place-items: center;  
+      background: #d7b0a4;  
+      color: white;  
+      font-size: 13px;  
+    }  
+  
+    @media (max-width: 1024px) {  
+      .hero__grid,  
+      .split {  
         grid-template-columns: 1fr;  
       }  
   
-      .about {  
+      .hero__visual {  
+        order: -1;  
+        min-height: auto;  
+      }  
+  
+      .cards,  
+      .steps {  
         grid-template-columns: 1fr;  
       }  
   
-      .about__photo img {  
-        min-height: 340px;  
+      .step:not(:last-child)::after {  
+        display: none;  
       }  
   
-      .section {  
-        padding: 72px 0;  
+      .banner {  
+        grid-template-columns: 1fr;  
+      }  
+  
+      .banner__image {  
+        border-radius: 36px 36px 0 0;  
+      }  
+  
+      .banner__action {  
+        padding: 0 28px 28px;  
       }  
     }  
   
-    @media (max-width: 640px) {  
-      .hero {  
-        min-height: auto;  
-        padding: 90px 0 72px;  
+    @media (max-width: 760px) {  
+      .container {  
+        width: min(1180px, calc(100% - 28px));  
       }  
   
-      .hero p {  
-        font-size: 16px;  
+      .nav {  
+        display: none;  
+      }  
+  
+      .topbar {  
+        padding-top: 20px;  
+      }  
+  
+      .section {  
+        padding: 64px 0;  
+      }  
+  
+      .hero {  
+        padding: 18px 0 56px;  
+      }  
+  
+      .hero__grid {  
+        gap: 30px;  
+      }  
+  
+      .hero__ring {  
+        width: 340px;  
+        height: 180px;  
+      }  
+  
+      .hero__badge {  
+        width: 76px;  
+        height: 76px;  
+        font-size: 22px;  
+        right: 10px;  
+        bottom: 18px;  
       }  
   
       .hero__actions {  
@@ -303,173 +538,244 @@
         align-items: stretch;  
       }  
   
-      .btn {  
+      .btn,  
+      .btn-outline {  
         width: 100%;  
       }  
   
-      .container {  
-        width: min(1100px, calc(100% - 28px));  
+      .image-card {  
+        min-height: 320px;  
+        border-radius: 110px 22px 22px 22px;  
       }  
   
-      .card {  
-        padding: 24px 20px;  
+      .footer__row {  
+        flex-direction: column;  
+        align-items: flex-start;  
       }  
   
-      .about__text {  
-        padding: 28px 22px;  
+      .footer__nav {  
+        flex-wrap: wrap;  
+        gap: 16px;  
       }  
     }  
   </style>  
 </head>  
 <body>  
   
-  <header class="hero">  
+  <header class="topbar">  
     <div class="container">  
-      <div class="hero__content">  
-        <span class="hero__label">Уроки фортепиано в Астане и онлайн</span>  
-        <h1>Piano Aida</h1>  
-        <p>  
-          Индивидуальные занятия для детей и взрослых.  
-          С нуля и для продолжающих учеников в эстетичной, спокойной атмосфере.  
-        </p>  
-  
-        <div class="hero__meta">  
-          <span>45 минут</span>  
-          <span>Онлайн и офлайн</span>  
-          <span>Астана, Кабанбай батыра 29/1, блок Б</span>  
-        </div>  
-  
-        <div class="hero__actions">  
-          <a class="btn" href="https://wa.me/77712277021" target="_blank">Записаться на урок</a>  
-          <a class="btn btn--light" href="#about">Обо мне</a>  
-        </div>  
+      <div class="topbar__row">  
+        <div class="logo">PIANO<br>AIDA</div>  
+        <nav class="nav">  
+          <a href="#about">Обо мне</a>  
+          <a href="#formats">Форматы</a>  
+          <a href="#steps">Как проходят занятия</a>  
+          <a href="#contact">Контакты</a>  
+        </nav>  
       </div>  
     </div>  
   </header>  
   
-  <section class="section">  
+  <section class="hero">  
     <div class="container">  
-      <div class="section__head">  
-        <div class="section__eyebrow">Для кого</div>  
-        <h2>Кому подойдут мои занятия</h2>  
-        <p class="section__desc">  
-          Уроки подстраиваются под возраст, уровень подготовки и цель ученика.  
-        </p>  
-      </div>  
-  
-      <div class="cards">  
-        <div class="card">  
-          <h3>Детям</h3>  
-          <p>Занятия для детей от 7 лет с постепенным и понятным освоением инструмента.</p>  
+      <div class="hero__grid">  
+        <div class="hero__visual">  
+          <div class="hero__ring"></div>  
+          <div class="hero__arch">  
+            <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=1200&q=80" alt="Фортепиано">  
+          </div>  
+          <div class="hero__badge">45<br>мин</div>  
         </div>  
   
-        <div class="card">  
-          <h3>Взрослым</h3>  
-          <p>Для тех, кто давно мечтал научиться играть и хочет начать в комфортном темпе.</p>  
+        <div class="hero__content">  
+          <h1>УРОКИ<br>ФОРТЕПИАНО<br>ДЛЯ ВАС</h1>  
+          <p>  
+            Индивидуальные занятия в Астане и онлайн для детей и взрослых.  
+            Спокойная атмосфера, выстроенная методика и обучение с вниманием к каждому ученику.  
+          </p>  
+  
+          <div class="hero__meta">  
+            <span>Дети от 7 лет</span>  
+            <span>Взрослые с нуля</span>  
+            <span>Продолжающие ученики</span>  
+            <span>Кабанбай батыра 29/1, блок Б</span>  
+          </div>  
+  
+          <div class="hero__actions">  
+            <a class="btn" href="https://wa.me/77712277021" target="_blank">Записаться на урок</a>  
+            <a class="btn btn-outline" href="#formats">Смотреть форматы</a>  
+          </div>  
         </div>  
-  
-        <div class="card">  
-          <h3>Продолжающим</h3>  
-          <p>Для учеников, которые уже имеют базу и хотят развивать технику, слух и музыкальность.</p>  
-        </div>  
-      </div>  
-    </div>  
-  </section>  
-  
-  <section class="section section--light">  
-    <div class="container">  
-      <div class="section__head">  
-        <div class="section__eyebrow">Занятия</div>  
-        <h2>Формат уроков</h2>  
-      </div>  
-  
-      <div class="cards">  
-        <div class="card">  
-          <h3>Индивидуально</h3>  
-          <p>Каждый урок строится под конкретного ученика и его задачи.</p>  
-        </div>  
-  
-        <div class="card">  
-          <h3>45 минут</h3>  
-          <p>Оптимальная длительность, чтобы совмещать теорию, практику и развитие навыков.</p>  
-        </div>  
-  
-        <div class="card">  
-          <h3>2–3 раза в неделю</h3>  
-          <p>Регулярный формат занятий для стабильного прогресса и уверенного результата.</p>  
-        </div>  
-      </div>  
-  
-      <div style="height:20px;"></div>  
-  
-      <div class="card">  
-        <h3>На занятиях</h3>  
-        <ul>  
-          <li>выстроенная методика обучения</li>  
-          <li>обучение нотной грамоте</li>  
-          <li>развитие чувства ритма</li>  
-          <li>развитие слуха</li>  
-        </ul>  
       </div>  
     </div>  
   </section>  
   
   <section class="section" id="about">  
     <div class="container">  
-      <div class="about">  
-        <div class="about__photo">  
-          <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=1200&q=80" alt="Фортепиано">  
-        </div>  
+      <div class="split">  
+        <div>  
+          <h2>ПРЕИМУЩЕСТВА МОИХ<br>ЗАНЯТИЙ</h2>  
   
-        <div class="about__text">  
-          <div class="section__eyebrow">Обо мне</div>  
-          <h2>Аида — преподаватель фортепиано</h2>  
-  
-          <p>  
-            Меня зовут Аида. Я преподаю фортепиано более 5 лет.  
-            За это время обучила 70+ учеников игре на фортепиано.  
-          </p>  
-  
-          <div class="about__stats">  
-            <div>  
-              <strong>5+ лет</strong>  
-              опыт преподавания  
-            </div>  
-            <div>  
-              <strong>70+</strong>  
-              учеников  
-            </div>  
-            <div>  
-              <strong>15+ лет</strong>  
-              в музыке  
-            </div>  
+          <div class="text-list">  
+            <div>индивидуальный подход к каждому ученику</div>  
+            <div>обучение нотной грамоте, развитие ритма и слуха</div>  
+            <div>занятия для детей и взрослых в комфортном темпе</div>  
+            <div>понятная и выстроенная методика обучения</div>  
+            <div>эстетичная и спокойная атмосфера на уроках</div>  
+            <div>развитие музыкальности, техники и уверенности за инструментом</div>  
           </div>  
   
-          <p><strong>Образование:</strong></p>  
-          <ul>  
-            <li>Актюбинский музыкальный колледж по классу фортепиано</li>  
-            <li>Казахский национальный университет искусств — фортепиано</li>  
-          </ul>  
+          <div style="margin-top: 28px;">  
+            <a class="btn" href="https://wa.me/77712277021" target="_blank">Записаться</a>  
+          </div>  
+        </div>  
+  
+        <div class="image-card">  
+          <img src="https://images.unsplash.com/photo-1514119412350-e174d90d280e?auto=format&fit=crop&w=1200&q=80" alt="Уютная музыкальная атмосфера">  
         </div>  
       </div>  
     </div>  
   </section>  
   
-  <section class="section section--light">  
+  <section class="section section-center" id="formats">  
     <div class="container">  
-      <div class="contact-box">  
-        <div class="section__eyebrow">Контакты</div>  
-        <h2>Запись на занятия</h2>  
-        <p>Адрес: Кабанбай батыра 29/1, блок Б, Астана</p>  
-        <p>WhatsApp: +7 771 227 7021</p>  
-        <a class="btn" href="https://wa.me/77712277021" target="_blank">Записаться в WhatsApp</a>  
+      <h2>ФОРМАТЫ ЗАНЯТИЙ</h2>  
+  
+      <div class="cards">  
+        <article class="card">  
+          <div class="card__image">  
+            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=900&q=80" alt="Занятия для детей">  
+          </div>  
+          <div class="card__body">  
+            <div class="card__title">ДЕТЯМ ОТ 7 ЛЕТ</div>  
+            <p>Мягкое и последовательное обучение: постановка рук, основы игры, ритм, слух и первые произведения.</p>  
+            <a class="btn card__btn" href="https://wa.me/77712277021" target="_blank">Записаться</a>  
+          </div>  
+        </article>  
+  
+        <article class="card">  
+          <div class="card__image">  
+            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=80" alt="Занятия для взрослых">  
+          </div>  
+          <div class="card__body">  
+            <div class="card__title">ВЗРОСЛЫМ С НУЛЯ</div>  
+            <p>Для тех, кто всегда мечтал играть на фортепиано и хочет начать без спешки, стресса и давления.</p>  
+            <a class="btn card__btn" href="https://wa.me/77712277021" target="_blank">Записаться</a>  
+          </div>  
+        </article>  
+  
+        <article class="card">  
+          <div class="card__image">  
+            <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?auto=format&fit=crop&w=900&q=80" alt="Продолжающие ученики">  
+          </div>  
+          <div class="card__body">  
+            <div class="card__title">ПРОДОЛЖАЮЩИМ</div>  
+            <p>Для тех, кто уже имеет базу и хочет улучшить технику, музыкальность, выразительность и уверенность.</p>  
+            <a class="btn card__btn" href="https://wa.me/77712277021" target="_blank">Записаться</a>  
+          </div>  
+        </article>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <section class="section section-center" id="steps">  
+    <div class="container">  
+      <h2>КАК ПРОХОДЯТ ЗАНЯТИЯ</h2>  
+  
+      <div class="steps">  
+        <div class="step">  
+          <div class="step__photo">  
+            <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=700&q=80" alt="Знакомство">  
+          </div>  
+          <p>На первом уроке знакомимся, определяем уровень и ваши цели в обучении.</p>  
+        </div>  
+  
+        <div class="step">  
+          <div class="step__photo">  
+            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=80" alt="Программа занятий">  
+          </div>  
+          <p>Подбирается индивидуальная программа: техника, нотная грамота, ритм, слух и репертуар.</p>  
+        </div>  
+  
+        <div class="step">  
+          <div class="step__photo">  
+            <img src="https://images.unsplash.com/photo-1516280030429-27679b3dc9cf?auto=format&fit=crop&w=700&q=80" alt="Результат занятий">  
+          </div>  
+          <p>Регулярные занятия 2–3 раза в неделю помогают постепенно выйти на уверенную игру и результат.</p>  
+        </div>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <section class="section">  
+    <div class="container">  
+      <div class="banner">  
+        <div class="banner__image">  
+          <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=900&q=80" alt="Преподаватель фортепиано">  
+        </div>  
+  
+        <div class="banner__content">  
+          <h2>АИДА — ПРЕПОДАВАТЕЛЬ<br>ФОРТЕПИАНО</h2>  
+          <p>  
+            Более 5 лет преподавания, 70+ учеников, музыкальное образование:  
+            Актюбинский музыкальный колледж и Казахский национальный университет искусств.  
+          </p>  
+        </div>  
+  
+        <div class="banner__action">  
+          <a class="btn" href="https://wa.me/77712277021" target="_blank">Связаться</a>  
+        </div>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <section class="section" id="contact" style="padding-top: 10px;">  
+    <div class="container">  
+      <div class="split" style="align-items:center;">  
+        <div>  
+          <div class="eyebrow">Контакты</div>  
+          <h2>ЗАПИСЬ НА ПРОБНЫЙ УРОК</h2>  
+          <p style="max-width:520px; margin-top: 16px;">  
+            Уроки проходят офлайн в Астане и онлайн.  
+            Чтобы узнать стоимость, свободное время и записаться, напишите в WhatsApp.  
+          </p>  
+  
+          <div class="text-list" style="margin-top: 22px;">  
+            <div>Адрес: Кабанбай батыра 29/1, блок Б</div>  
+            <div>WhatsApp: +7 771 227 7021</div>  
+            <div>Индивидуальные занятия по 45 минут</div>  
+          </div>  
+  
+          <div style="margin-top: 28px;">  
+            <a class="btn" href="https://wa.me/77712277021" target="_blank">Написать в WhatsApp</a>  
+          </div>  
+        </div>  
+  
+        <div class="image-card" style="border-radius: 26px 140px 26px 26px;">  
+          <img src="https://images.unsplash.com/photo-1487215078519-e21cc028cb29?auto=format&fit=crop&w=1200&q=80" alt="Пианино">  
+        </div>  
       </div>  
     </div>  
   </section>  
   
   <footer class="footer">  
     <div class="container">  
-      Piano Aida © 2026  
+      <div class="footer__row">  
+        <div class="logo">PIANO<br>AIDA</div>  
+  
+        <div class="footer__nav">  
+          <a href="#about">Обо мне</a>  
+          <a href="#formats">Форматы</a>  
+          <a href="#steps">Занятия</a>  
+          <a href="#contact">Контакты</a>  
+        </div>  
+  
+        <div class="footer__socials">  
+          <span>wa</span>  
+          <span>ig</span>  
+          <span>tg</span>  
+        </div>  
+      </div>  
     </div>  
   </footer>  
   
